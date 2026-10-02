@@ -1,7 +1,7 @@
 # 청소년 익명 투표 앱 리텐션 분석
 
 > 익명 투표형 SNS의 신규 유저 행동을 분석해  
-> **가입 초기 어떤 경험이 이후 재발신과 연결되는지** 확인하고,  
+> 가입 초기 어떤 경험이 이후 재발신과 연결되는지 확인하고  
 > `Staging → EDA → Mart → 통계 검정 → ML → Airflow` 흐름으로 분석을 확장한 프로젝트이다.
 
 ---
@@ -9,38 +9,38 @@
 ## 목차
 
 - [한 줄 결론](#한-줄-결론)
-- [1. Project Overview](#1-project-overview)
-- [2. Analysis Flow](#2-analysis-flow)
-- [Dashboards](#dashboards)
-- [3. Data Preparation](#3-data-preparation)
-- [4. EDA Summary](#4-eda-summary)
-- [5. Hypothesis](#5-hypothesis)
-- [6. Retention & Statistical Validation](#6-retention--statistical-validation)
-- [7. Machine Learning](#7-machine-learning)
-- [8. Key Findings](#8-key-findings)
-- [9. Business Implication](#9-business-implication)
-- [10. Implementation Status](#10-implementation-status)
-- [11. Additional Analysis](#11-additional-analysis)
-- [12. Limitations](#12-limitations)
-- [13. Repository Structure](#13-repository-structure)
-- [14. Reproducibility](#14-reproducibility)
-- [15. Next Step](#15-next-step)
+- [1. 프로젝트 개요](#1-프로젝트-개요)
+- [2. 분석 흐름](#2-분석-흐름)
+- [대시보드](#대시보드)
+- [3. 데이터 준비](#3-데이터-준비)
+- [4. EDA 요약](#4-eda-요약)
+- [5. 가설](#5-가설)
+- [6. 리텐션과 통계 검증](#6-리텐션과-통계-검증)
+- [7. 머신러닝](#7-머신러닝)
+- [8. 핵심 결과](#8-핵심-결과)
+- [9. 비즈니스 제안](#9-비즈니스-제안)
+- [10. 구현 현황](#10-구현-현황)
+- [11. 추가 분석](#11-추가-분석)
+- [12. 한계](#12-한계)
+- [13. 저장소 구조](#13-저장소-구조)
+- [14. 재현 방법](#14-재현-방법)
+- [15. 다음 단계](#15-다음-단계)
 
 ## 한 줄 결론
 
-초기 분석에서는 **PING 수신 후 힌트까지 열람한 사용자**가 힌트를 열지 않은 사용자보다 이후 재발신율이 높았다.  
+초기 분석에서는 PING 수신 후 힌트까지 열람한 사용자가 힌트를 열지 않은 사용자보다 이후 재발신율이 높았다.  
 다만 머신러닝 단계에서 초기 활동량과 사용자 특성을 함께 고려했을 때 힌트 피처의 독립적인 기여는 크지 않았다.
 
-따라서 특정 기능 하나보다 **가입 직후 실제 행동을 시작하고, 초기 활동을 충분히 만드는 것**이 이후 유지와 더 밀접한 신호라고 해석했다.
+특정 기능 하나보다 가입 직후 실제 행동을 시작하고 초기 활동을 충분히 만드는 것이 이후 유지와 더 밀접한 신호라고 해석했다.
 
 ---
 
-## 1. Project Overview
+## 1. 프로젝트 개요
 
 ### 분석 질문
 
 > 가입 초기의 어떤 행동과 경험이 이후 재발신과 연결되는가?  
-> 특히 PING 수신 이후의 **힌트 열람 경험**은 이후 행동과 어떤 관계가 있는가?
+> 특히 PING 수신 이후의 힌트 열람 경험은 이후 행동과 어떤 관계가 있는가?
 
 ### 서비스 핵심 행동
 
@@ -60,7 +60,7 @@
 
 ---
 
-## 2. Analysis Flow
+## 2. 분석 흐름
 
 ```text
 서비스·데이터 구조 이해
@@ -104,22 +104,22 @@ Prediction
 
 ---
 
-## Dashboards
+## 대시보드
 
-분석 결과와 운영 지표는 Looker Studio 대시보드로 시각화했다. 두 대시보드 모두 BigQuery Mart를 데이터 소스로 직접 연결했다.
+분석 결과와 운영 지표는 Looker Studio 대시보드로 시각화했다. 두 대시보드는 모두 BigQuery Mart에 직접 연결했다.
 
 | 대시보드 | 내용 | 연결 Mart | 링크 |
 | --- | --- | --- | --- |
-| **Activation & Retention Dashboard** | 활성화·누적 재발신율·코호트 리텐션 등 분석 결과 | `mart_retention_cohort` 등 | [바로가기]([https://datastudio.google.com/s/hget61nyr7Q](https://datastudio.google.com/reporting/cac796de-949f-4e07-8cd7-4f230b46ab41)) |
-| **Daily Operations Dashboard** | DAU 및 신규 가입 추이, PING 발신·힌트 열람·결제·탈퇴 추이 | `mart_ops_daily` 등 | [바로가기]([https://datastudio.google.com/s/jRoJ9CN0B1c](https://datastudio.google.com/reporting/b90b082d-85db-4940-b3d9-5ecc818ddc4f)) |
+| **Activation & Retention Dashboard** | 활성화·누적 재발신율·코호트 리텐션 등 분석 결과 | `mart_retention_cohort` 등 | [바로가기](https://datastudio.google.com/s/hget61nyr7Q) · [직접 링크](https://datastudio.google.com/reporting/cac796de-949f-4e07-8cd7-4f230b46ab41) |
+| **Daily Operations Dashboard** | DAU 및 신규 가입 추이, PING 발신·힌트 열람·결제·탈퇴 추이 | `mart_ops_daily` 등 | [바로가기](https://datastudio.google.com/s/jRoJ9CN0B1c) · [직접 링크](https://datastudio.google.com/reporting/b90b082d-85db-4940-b3d9-5ecc818ddc4f) |
 
 ---
 
-## 3. Data Preparation
+## 3. 데이터 준비
 
 ### Staging
 
-원천 데이터를 바로 분석하지 않고, 테이블별 Staging 노트북을 만들어 정제·표준화했다.
+원천 데이터를 바로 분석하지 않고 테이블별 Staging 노트북을 만들어 정제·표준화했다.
 
 주요 Staging 테이블은 다음과 같다.
 
@@ -147,17 +147,17 @@ stg_user_properties
 
 ---
 
-## 4. EDA Summary
+## 4. EDA 요약
 
 EDA에서는 사용자 규모와 구성, 친구 관계, Activation Funnel, 초기 활동량, 리텐션 등을 폭넓게 확인했다.
 
-모든 EDA를 최종 분석에 직접 사용한 것은 아니며, 탐색 결과를 바탕으로 분석 범위를 **가입 초기 경험과 이후 재발신 관계**로 좁혔다.
+모든 EDA를 최종 분석에 직접 사용하지는 않았다. 탐색 결과를 바탕으로 분석 범위를 가입 초기 경험과 이후 재발신 관계로 좁혔다.
 
 ### 주요 발견
 
 - 전체 유효 분석 사용자 중 최종 Activation 정의를 만족한 사용자는 **5,059명**
 - 학교 가입자 규모가 커질수록 평균 친구 수가 증가하다 일정 규모 이후 완만해지는 패턴이 나타남
-- 친구 수가 많은 사용자는 활동 총량은 높았지만, 받은 PING 대비 개별 반응률은 반드시 높지 않았음
+- 친구 수가 많은 사용자는 활동 총량은 높았지만 받은 PING 대비 개별 반응률은 반드시 높지 않았음
 - 가입 초기 행동량에 따라 이후 D+7 유지 지표에 큰 차이가 나타남
 
 ### 가입 초기 활동과 D+7
@@ -172,12 +172,12 @@ EDA 단계에서 특정 기능 하나보다 **초기 행동 자체의 강도**�
 
 ---
 
-## 5. Hypothesis
+## 5. 가설
 
 ### 가설
 
-> **D0에 PING을 수신하고 힌트를 열람한 유저는,  
-> PING을 수신했지만 힌트를 열람하지 않은 유저보다 이후 후속 PING 발신율이 높을 것이다.**
+> D0에 PING을 수신하고 힌트를 열람한 유저는  
+> PING을 수신했지만 힌트를 열람하지 않은 유저보다 이후 후속 PING 발신율이 높을 것이다.
 
 ### 그룹 정의
 
@@ -204,7 +204,7 @@ EDA 단계에서 특정 기능 하나보다 **초기 행동 자체의 강도**�
 
 ---
 
-## 6. Retention & Statistical Validation
+## 6. 리텐션과 통계 검증
 
 활성화 사용자 기준 누적 재발신율은 다음과 같았다.
 
@@ -215,9 +215,9 @@ EDA 단계에서 특정 기능 하나보다 **초기 행동 자체의 강도**�
 | D+7 | 3,393 | 67.1% |
 | D+10 | 3,412 | 67.4% |
 
-D+10까지 재발신한 사용자 중 대부분이 이미 D+1 안에 행동해, **가입 직후가 반복 행동 형성에 중요한 구간**임을 확인했다.
+D+10까지 재발신한 사용자 중 대부분이 이미 D+1 안에 행동했다. 가입 직후가 반복 행동 형성에 중요한 구간임을 확인했다.
 
-> 📊 활성화·코호트 리텐션 지표는 [Activation & Retention Dashboard]([https://datastudio.google.com/s/j9Fg-Icypcc](https://datastudio.google.com/reporting/cac796de-949f-4e07-8cd7-4f230b46ab41))에서 확인할 수 있다.
+> 활성화·코호트 리텐션 지표는 [Activation & Retention Dashboard](https://datastudio.google.com/s/j9Fg-Icypcc) ([직접 링크](https://datastudio.google.com/reporting/cac796de-949f-4e07-8cd7-4f230b46ab41))에서 확인할 수 있다.
 
 ### G2 vs G1
 
@@ -234,11 +234,11 @@ D+10까지 재발신한 사용자 중 대부분이 이미 D+1 안에 행동해, 
 
 ---
 
-## 7. Machine Learning
+## 7. 머신러닝
 
 ### 목적
 
-첫 PING 발신 이후 초기 행동을 바탕으로 **D+7 유지 여부를 예측**하고,
+첫 PING 발신 이후 초기 행동을 바탕으로 D+7 유지 여부를 예측하고
 
 1. 초기 활동 중 어떤 정보가 예측에 기여하는지 확인
 2. 유지 가능성이 낮은 사용자를 상대적으로 구분
@@ -266,7 +266,7 @@ D+10까지 재발신한 사용자 중 대부분이 이미 D+1 안에 행동해, 
 - 질문 카테고리 행동
 - 포인트 관련 행동
 
-힌트 데이터의 경우 전체 힌트 열람 이벤트를 직접 관찰할 수 없었기 때문에,  
+힌트 데이터는 전체 힌트 열람 이벤트를 직접 관찰할 수 없었기 때문에  
 `first_hint_opened_at`을 활용해 **서비스 최초 힌트 열람이 T0 이후 24시간 안에 발생했는지**를 피처로 정의했다.
 
 ### 모델링 흐름
@@ -287,7 +287,7 @@ Ablation Test
 Final Test
 ```
 
-Validation에서는 Random Forest가 후보 모델 중 가장 높은 ROC-AUC를 보였고, LightGBM은 Train 대비 Validation 성능 격차가 커 과적합 신호가 확인됐다.
+Validation에서는 Random Forest가 후보 모델 중 가장 높은 ROC-AUC를 보였으며 LightGBM은 Train 대비 Validation 성능 격차가 커 과적합 신호가 확인됐다.
 
 ### Ablation Test
 
@@ -297,7 +297,7 @@ Validation에서는 Random Forest가 후보 모델 중 가장 높은 ROC-AUC를 
 - 힌트 관련 피처 제거 시 성능이 오히려 소폭 개선
 - PING·질문 카테고리 정보의 단독 기여는 제한적
 
-> 이변량 분석에서 강하게 보였던 **힌트 열람 ↔ 재발신 관계**는  
+> 이변량 분석에서 강하게 보였던 힌트 열람 ↔ 재발신 관계는  
 > 다른 초기 활동 정보를 함께 고려했을 때 독립적인 예측 신호로 강하게 남지 않았다.
 
 ### 최종 산출물
@@ -308,34 +308,34 @@ Validation에서는 Random Forest가 후보 모델 중 가장 높은 ROC-AUC를 
 - `risk_score`: 상대적 이탈 위험점수
 - `risk_segment`: 상대적 위험구간
 
-이 점수는 인과 효과나 절대적인 미래 확률이라기보다 **사용자 간 관리 우선순위를 구분하는 상대적 지표**로 해석했다.
+이 점수는 인과 효과나 절대적인 미래 확률이라기보다 사용자 간 관리 우선순위를 구분하는 상대적 지표로 해석했다.
 
 ---
 
-## 8. Key Findings
+## 8. 핵심 결과
 
-### 1) 재발신은 가입 초기에 집중됐다
+### 1. 재발신은 가입 초기에 집중됐다
 
-D+10 누적 재발신율만 보면 67.4%로 높아 보이지만, 재발신 사용자의 행동은 가입 직후에 크게 집중됐다.
+D+10 누적 재발신율만 보면 67.4%로 높아 보이지만 재발신 사용자의 행동은 가입 직후에 크게 집중됐다.
 
-따라서 누적 지표만 보기보다 **언제 첫 반복 행동이 발생했는지**를 함께 보는 것이 중요했다.
+누적 지표만 보기보다 언제 첫 반복 행동이 발생했는지를 함께 보는 것이 중요했다.
 
-### 2) 초기 활동 강도가 이후 유지와 밀접하게 연결됐다
+### 2. 초기 활동 강도가 이후 유지와 밀접하게 연결됐다
 
 가입 당일 행동이 없던 사용자와 실제 행동을 시작한 사용자 사이에서 D+7 지표에 큰 차이가 나타났다.
 
-### 3) 힌트 열람은 재발신과 연관됐지만 독립적인 효과로 단정할 수 없었다
+### 3. 힌트 열람은 재발신과 연관됐지만 독립적인 효과로 단정할 수 없었다
 
-G2는 G1보다 이후 재발신율이 높았지만, 머신러닝의 Ablation 결과에서는 힌트 정보의 독립적인 예측 기여가 크지 않았다.
+G2는 G1보다 이후 재발신율이 높았지만 머신러닝의 Ablation 결과에서는 힌트 정보의 독립적인 예측 기여가 크지 않았다.
 
-### 4) 하나의 기능보다 사용자 초기 행동 전체를 함께 보는 것이 중요했다
+### 4. 하나의 기능보다 사용자 초기 행동 전체를 함께 보는 것이 중요했다
 
 최종적으로 특정 기능 하나를 핵심 원인으로 단정하기보다,  
-**가입 초기에 사용자가 실제 행동을 시작했는지와 얼마나 적극적으로 활동했는지**를 함께 보는 방향이 더 적절하다고 판단했다.
+가입 초기에 사용자가 실제 행동을 시작했는지와 얼마나 적극적으로 활동했는지를 함께 보는 방향이 더 적절하다고 판단했다.
 
 ---
 
-## 9. Business Implication
+## 9. 비즈니스 제안
 
 분석 결과를 바탕으로 다음 방향을 제안했다.
 
@@ -345,13 +345,13 @@ G2는 G1보다 이후 재발신율이 높았지만, 머신러닝의 Ablation 결
 - 사용자 위험점수를 절대 예측값이 아닌 운영 우선순위 기준으로 활용
 - 힌트 열람 유도의 실제 효과는 A/B Test로 별도 검증
 
-> 본 프로젝트는 관찰 데이터를 기반으로 하므로 특정 행동의 **인과 효과를 증명한 분석이 아니다.**
+> 본 프로젝트는 관찰 데이터를 기반으로 하므로 특정 행동의 인과 효과를 증명한 분석이 아니다.
 
 ---
 
-## 10. Implementation Status
+## 10. 구현 현황
 
-분석에서 그친 것이 아니라, 예측 결과를 실제 운영에 활용할 수 있는 형태까지 구축했다.
+분석에서 그치지 않고 예측 결과를 실제 운영에 활용할 수 있는 형태까지 구축했다.
 
 - **예측 결과 저장 구조 구축**: 사용자별 유지확률·위험점수·위험구간을 `ml_d7_prediction_result`에 적재. 같은 날짜를 다시 실행해도 중복되지 않도록 멱등(그날 데이터 삭제 후 재적재) 처리
 - **위험구간 운영 기준 정의**: 위험점수 기준 상위 20%를 HIGH, 이후 구간을 MEDIUM / LOW로 구분. HIGH 구간의 실제 D+7 재발신율이 LOW 구간보다 뚜렷하게 낮아, 상대적 관리 우선순위 지표로 활용 가능함을 확인
@@ -361,7 +361,7 @@ G2는 G1보다 이후 재발신율이 높았지만, 머신러닝의 Ablation 결
 
 ---
 
-## 11. Additional Analysis
+## 11. 추가 분석
 
 핵심 리텐션 분석 외에도 서비스와 데이터를 이해하기 위해 다음 주제를 탐색했다.
 
@@ -371,12 +371,12 @@ G2는 G1보다 이후 재발신율이 높았지만, 머신러닝의 Ablation 결
 - 신고·차단·숨김 행동이 높은 사용자 집단
 - 운영 KPI 및 일일 지표
 
-이 분석들은 서비스 전반을 이해하는 EDA로 활용했고,  
+이 분석들은 서비스 전반을 이해하는 EDA로 활용했고  
 최종 리텐션 분석의 핵심 결론과는 구분해 정리했다.
 
 ---
 
-## 12. Limitations
+## 12. 한계
 
 - **관찰 데이터**: 무작위 배정이 없어 인과 추론에 한계가 있음
 - **교란 가능성**: 활동량, 학교 네트워크, 학년, 학교 유형 등의 영향이 남을 수 있음
@@ -391,56 +391,34 @@ G2는 G1보다 이후 재발신율이 높았지만, 머신러닝의 Ablation 결
 ## 13. Repository Structure
 
 ```text
-project/
+anonymous-vote-analytics/
 ├── .gitignore
 ├── README.md
 ├── requirements.txt
 │
 ├── airflow/
-│   ├── dags
-│       ├── d7_alert.py
-│   ├── docker-compose.yml
-│   ├── requirements.txt
+│   ├── dags/
+│   │   └── d7_alert.py          # D+7 스코어링 DAG
+│   ├── docker-compose.yaml
+│   └── requirements.txt
 │
-├── docs/
-│   ├── diagrams
-│   ├── guides
-│   ├── reports
+├── notebooks/
+│   ├── 01_stage/                # 원천 테이블 정제·표준화 (11개)
+│   ├── 02_EDA/                  # 사용자 구성·친구 관계·초기 행동 탐색 (4개)
+│   ├── 03_Marts/                # 분석 목적별 Mart 구축 (4개)
+│   └── 04_ML/                   # Base·Feature·Training Mart, D+7 예측 (6개)
 │
-└── notebooks/
-    ├── 01_Stage/
-    │   ├── stg_user.ipynb
-    │   ├── stg_vote.ipynb
-    │   ├── stg_question.ipynb
-    │   ├── ...
-    │   └── stg_withdraw.ipynb
-    │
-    ├── 02_EDA/
-    │   ├── high_report_block_hide_users.ipynb
-    │   ├── signup_friend_count_behavior.ipynb
-    │   ├── user_base_overview.ipynb
-    │   ├── zero_friend_users.ipynb
-    │
-    ├── 03_Marts/
-    │   ├── mart_acquisition.ipynb
-    │   ├── mart_activation.ipynb
-    │   ├── mart_retention.ipynb
-    │   └── for_ops_dashboard.ipynb
-    │
-    └── 04_ML/
-        ├── churn_prediction_base_mart.ipynb
-        ├── fct_ml_ping_24h.ipynb
-        ├── fct_ml_hint_24h.ipynb
-        ├── fct_ml_category_24h.ipynb
-        ├── mart_ml_d7_training.ipynb
-        └── ml_d7_evaluation_and_simulation.ipynb
+└── reports/
+    ├── 01. 활성화-재발신 관계 분석 보고서.pdf
+    ├── 02. 첫 하트 구매 시점 및 재구매 패턴 분석.pdf
+    └── 03. 일일 운영 보고서.pdf
 ```
 
 ---
 
-## 14. Reproducibility
+## 14. 재현 방법
 
-이 저장소는 **다른 로컬 환경에서도 분석 흐름을 이어갈 수 있는 수준**으로 정리하는 것을 목표로 한다.
+이 저장소는 다른 로컬 환경에서도 분석 흐름을 이어갈 수 있는 수준으로 정리하는 것을 목표로 한다.
 
 ### 실행 환경
 
@@ -505,18 +483,13 @@ gcloud auth application-default login
 
 ---
 
-## 15. Next Step
+## 15. 다음 단계
 
-이 프로젝트는 관찰 데이터 기반 분석과 운영 자동화 시뮬레이션까지 완료했다. 실무로 확장한다면 위 한계를 넘어서는 다음 단계로 이어질 수 있다.
+이 프로젝트는 관찰 데이터 기반 분석과 운영 자동화 시뮬레이션까지 완료했다. 실무 확장을 위해 다음 단계를 제안한다.
 
 - **인과 검증 (↔ 관찰 데이터 한계)**: 초기 활동·힌트 열람의 실제 효과는 무작위 배정 기반 온보딩 A/B Test로 검증
 - **연속 수집 환경 재측정 (↔ 데이터 수집 공백 한계)**: 관찰 불가 구간이 없는 연속 데이터에서 리텐션 지표를 다시 측정
-- **실운영 전환 (↔ 정적 덤프 기반 시뮬레이션)**: 현재 배치 시뮬레이션을 실데이터 연속 적재 기반 스케줄 파이프라인으로 전환하고, 재학습 트리거 기준(성능 저하·데이터 드리프트 등)을 정의
-- **모델 고도화**: 최종 피처 세트를 주기적으로 재검증하고, 위험구간 기준을 운영 결과에 따라 보정
+- **실운영 전환 (↔ 정적 덤프 기반 시뮬레이션)**: 현재 배치 시뮬레이션을 실데이터 연속 적재 기반 스케줄 파이프라인으로 전환하고 재학습 트리거 기준(성능 저하·데이터 드리프트 등)을 정의
+- **모델 고도화**: 최종 피처 세트를 주기적으로 재검증하고 위험구간 기준을 운영 결과에 따라 보정
 
 ---
-
-## Data Notice
-
-본 저장소에는 개인정보 또는 식별 가능한 원천 사용자 데이터를 포함하지 않는다.  
-포트폴리오에서는 분석 코드, 데이터 구조 설명, 집계 결과만 공개한다.
