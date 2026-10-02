@@ -1,0 +1,18 @@
+# 시크릿 / 자격증명 (무조건 제외)
+.env
+keys/
+*.json
+!config/*.json
+ 
+# 가상환경 / 생성 파일
+.venv/
+venv/
+ 
+# Airflow 런타임 산출물
+logs/
+*.pyc
+__pycache__/
+ 
+# OS
+.DS_Store
+Thumbs.db
