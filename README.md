@@ -120,8 +120,8 @@ Prediction
 
 | 대시보드 | 내용 | 연결 Mart | 링크 |
 | --- | --- | --- | --- |
-| **Activation & Retention Dashboard** | 활성화·누적 재발신율·코호트 리텐션 등 분석 결과 | `mart_retention_cohort` 등 | [바로가기](https://datastudio.google.com/s/hget61nyr7Q) · [직접 링크](https://datastudio.google.com/reporting/cac796de-949f-4e07-8cd7-4f230b46ab41) |
-| **Daily Operations Dashboard** | DAU 및 신규 가입 추이, PING 발신·힌트 열람·결제·탈퇴 추이 | `mart_ops_daily` 등 | [바로가기](https://datastudio.google.com/s/jRoJ9CN0B1c) · [직접 링크](https://datastudio.google.com/reporting/b90b082d-85db-4940-b3d9-5ecc818ddc4f) |
+| **Activation & Retention Dashboard** | 활성화·누적 재발신율·코호트 리텐션 등 분석 결과 | `mart_retention_cohort` 등 | [바로가기](https://datastudio.google.com/reporting/cac796de-949f-4e07-8cd7-4f230b46ab41) |
+| **Daily Operations Dashboard** | DAU 및 신규 가입 추이, PING 발신·힌트 열람·결제·탈퇴 추이 | `mart_ops_daily` 등 | [바로가기](https://datastudio.google.com/reporting/b90b082d-85db-4940-b3d9-5ecc818ddc4f) |
 
 ---
 
