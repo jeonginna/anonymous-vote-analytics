@@ -6,6 +6,16 @@
 
 ---
 
+**분석 기간** 2026.07.27 ~ 2026.08.26 · **도구** Bigquery, Python, Data Studio, Airflow · **데이터** 27개 테이블
+
+> **데이터 안내**
+>
+> 본 프로젝트의 원본 데이터는 실제 기업과 정식 계약을 맺고 제공받은 자료다. 계약에 따라 원본 데이터의 복제·배포·공개 및 원본을 유추하거나 복원할 수 있는 형태의 공유가 금지되어 있다.
+>
+> 본 저장소에는 원본 데이터, DB 접속 정보, 실제 테이블·컬럼명을 포함하지 않는다. 분석 과정과 결과물만 개인 포트폴리오 목적으로 공개한다.
+
+[프로젝트 요약 PDF 보기](ananymous_vote_analysis_onepaper.pdf)
+
 ## 목차
 
 - [한 줄 결론](#한-줄-결론)
@@ -391,7 +401,7 @@ G2는 G1보다 이후 재발신율이 높았지만 머신러닝의 Ablation 결�
 ## 13. Repository Structure
 
 ```text
-anonymous-vote-analytics/
+anonymous-vote-analysis/
 ├── .gitignore
 ├── README.md
 ├── requirements.txt
