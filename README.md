@@ -110,8 +110,8 @@ Prediction
 
 | 대시보드 | 내용 | 연결 Mart | 링크 |
 | --- | --- | --- | --- |
-| **Activation & Retention Dashboard** | 활성화·누적 재발신율·코호트 리텐션 등 분석 결과 | `mart_retention_cohort` 등 | [바로가기](https://datastudio.google.com/s/j9Fg-Icypcc) |
-| **Daily Operations Dashboard** | DAU 및 신규 가입 추이, PING 발신·힌트 열람·결제·탈퇴 추이 | `mart_ops_daily` 등 | [바로가기](https://datastudio.google.com/s/jRoJ9CN0B1c) |
+| **Activation & Retention Dashboard** | 활성화·누적 재발신율·코호트 리텐션 등 분석 결과 | `mart_retention_cohort` 등 | [바로가기]([https://datastudio.google.com/s/hget61nyr7Q](https://datastudio.google.com/reporting/cac796de-949f-4e07-8cd7-4f230b46ab41)) |
+| **Daily Operations Dashboard** | DAU 및 신규 가입 추이, PING 발신·힌트 열람·결제·탈퇴 추이 | `mart_ops_daily` 등 | [바로가기]([https://datastudio.google.com/s/jRoJ9CN0B1c](https://datastudio.google.com/reporting/b90b082d-85db-4940-b3d9-5ecc818ddc4f)) |
 
 ---
 
@@ -217,7 +217,7 @@ EDA 단계에서 특정 기능 하나보다 **초기 행동 자체의 강도**�
 
 D+10까지 재발신한 사용자 중 대부분이 이미 D+1 안에 행동해, **가입 직후가 반복 행동 형성에 중요한 구간**임을 확인했다.
 
-> 📊 활성화·코호트 리텐션 지표는 [Activation & Retention Dashboard](https://datastudio.google.com/s/j9Fg-Icypcc)에서 확인할 수 있다.
+> 📊 활성화·코호트 리텐션 지표는 [Activation & Retention Dashboard]([https://datastudio.google.com/s/j9Fg-Icypcc](https://datastudio.google.com/reporting/cac796de-949f-4e07-8cd7-4f230b46ab41))에서 확인할 수 있다.
 
 ### G2 vs G1
 
@@ -355,7 +355,7 @@ G2는 G1보다 이후 재발신율이 높았지만, 머신러닝의 Ablation 결
 
 - **예측 결과 저장 구조 구축**: 사용자별 유지확률·위험점수·위험구간을 `ml_d7_prediction_result`에 적재. 같은 날짜를 다시 실행해도 중복되지 않도록 멱등(그날 데이터 삭제 후 재적재) 처리
 - **위험구간 운영 기준 정의**: 위험점수 기준 상위 20%를 HIGH, 이후 구간을 MEDIUM / LOW로 구분. HIGH 구간의 실제 D+7 재발신율이 LOW 구간보다 뚜렷하게 낮아, 상대적 관리 우선순위 지표로 활용 가능함을 확인
-- **운영 자동화 파이프라인 구현**: Airflow DAG(`d7_retention_scoring_dag.py`)로 대상 조회 → 스코어링 → 적재 → 검증 → 알람(Slack·이메일)까지 하나의 흐름으로 구성. 과거 고정 데이터를 날짜별로 재생하는 배치 시뮬레이션 형태로 구현
+- **운영 자동화 파이프라인 구현**: Airflow DAG(`d7_alert.py`)로 대상 조회 → 스코어링 → 적재 → 검증 → 알람(Slack·이메일)까지 하나의 흐름으로 구성. 과거 고정 데이터를 날짜별로 재생하는 배치 시뮬레이션 형태로 구현
 
 > 현재 데이터는 정적 덤프이므로 실시간 운영이 아니라, 실운영 배치를 모의하는 시뮬레이션으로 구현했다.
 
@@ -398,7 +398,7 @@ project/
 │
 ├── airflow/
 │   ├── dags
-│       ├── d7_retention_scoring_dag.py
+│       ├── d7_alert.py
 │   ├── docker-compose.yml
 │   ├── requirements.txt
 │
